@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct CodeBreakerView: View {
-    let game: CodeBreaker = CodeBreaker()
+    let game = CodeBreaker()
 
     var body: some View {
         VStack {
-            pegs(colors: [.red, .green, .blue, .yellow])
-            pegs(colors: [.yellow, .red, .blue, .green])
-            pegs(colors: [.red, .blue, .green, .yellow])
+            view(for: game.masterCode)
+            view(for: game.guess)
+//           pegs(colors: game.attempts[0].pegs)
         }
         .padding()
     }
 
-    func pegs(colors: [Color]) -> some View {
+    func view(for code: Code) -> some View {
         HStack {
-            ForEach(colors.indices, id: \.self) {
+            ForEach(code.pegs.indices, id: \.self) {
                 RoundedRectangle(cornerRadius: 10)
                     .aspectRatio(1, contentMode: .fit)
-                    .foregroundColor(colors[$0])
+                    .foregroundColor(code.pegs[$0])
             }
 
             MatchMarkers(
